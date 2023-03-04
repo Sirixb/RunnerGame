@@ -27,16 +27,10 @@ public class PlayerCommandVoice : MonoBehaviour
 
 	private void Movement() => transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
 
-	public void OnAccion(InputValue value)
-	{
-		Debug.Log("Accion presionada");
-	}
-	
 	public void Arriba()
 	{
 		Jump();
 		StartCoroutine(JumpPhysics());
-		Debug.Log("arriba llamado");
 	}
 	
 	public void Jump() => animator.SetTrigger(animatorJump);
@@ -57,7 +51,6 @@ public class PlayerCommandVoice : MonoBehaviour
 	
 	public void Abajo()
 	{
-		Debug.Log("abajo llamado");
 		Slide();
 		transform.position = new Vector3(transform.position.x,0,transform.position.z);
 	}
