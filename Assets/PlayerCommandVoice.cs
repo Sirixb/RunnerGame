@@ -9,60 +9,43 @@ public class PlayerCommandVoice : MonoBehaviour
 	[SerializeField] private Rigidbody rigidbodyPlayer;
 	[SerializeField] private Animator animator;
 	
-	
-	private bool canJump = true;
-	private float jump;
 	[SerializeField] private float speed= 5;
 	[SerializeField] private float hight= 1;
 	[SerializeField] private float speedHight = 2;
 	private float tempo;
 	
-	bool shouldContinue = false;
 	static readonly string animatorSpeed = "Speed";
 	static readonly string animatorSlide = "Slide";
+	static readonly string animatorJump = "Jump";
 	
 	private void Start()
 	{
 		animator.SetFloat(animatorSpeed,speed);
-		
 	}
-	public void Slide()
-	{
-		animator.SetTrigger(animatorSlide);
-	}
+
+	void Update() => Movement();
+
+	private void Movement() => transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
 
 	public void OnAccion(InputValue value)
 	{
-		Slide();
+		// Arriba();
 	}
 	
-	void Update()
+	public void Arriba()
 	{
-		Movement();
-		// if(Input.GetKeyDown(KeyCode.Space))
-		// {
-		// 	Slide();	
-		// }
-		
-	}
-
-	private void Movement()
-	{
-		transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
-	}
-
-	private void Arriba()
-	{
-		StartCoroutine(Jump());
+		Jump();
+		StartCoroutine(JumpPhysics());
+		Debug.Log("arribas llamado");
 	}
 	
-	IEnumerator Jump()
+	public void Jump() => animator.SetTrigger(animatorJump);
+	IEnumerator JumpPhysics()
 	{
 		do
 		{
 			tempo+=.2f;
 			transform.transform.position = (new Vector3(transform.position.x, Mathf.PingPong((tempo * hight) * speedHight, 5), transform.position.z));
-			print ("Hello World");
 			yield return null;
 			
 		}while(transform.position.y >= .1);
@@ -71,25 +54,14 @@ public class PlayerCommandVoice : MonoBehaviour
 		yield return null;
 	}
 	
-	private void Abajo()
+	public void Abajo()
 	{
+		Debug.Log("abajo llamado");
+		Slide();
 		transform.position = new Vector3(transform.position.x,0,transform.position.z);
 	}
-	
-	IEnumerator Fall()
-	{
-		while (jump >= .1)
-		{
-			jump-= Time.deltaTime;
-			transform.Translate(Vector3.down * jump);
-			Debug.Log("bajando");
-			yield return null;
-		}
-		// canJump=true;
-		// transform.position= Vector3.zero;
-		yield return null;
-	}
-	
+
+	public void Slide() => animator.SetTrigger(animatorSlide);
 	
 	private void OnEnable()
 	{

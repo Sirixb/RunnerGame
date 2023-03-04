@@ -6,37 +6,19 @@ using UnityEngine.Windows.Speech;
 
 public class CommnadVoice : MonoBehaviour
 {
-	KeywordRecognizer keywordRecognizer;
+	public KeywordRecognizer keywordRecognizer;
+	public ConfidenceLevel confidenceLevel = ConfidenceLevel.Low;
 	Dictionary<string, Action> wordToAction;
 	
 	public static Action OnUp;
 	public static Action OnDown;
-	public static PlayerCommandVoice instance;
-	// static PlayerCommandVoice Instance
-	// {
-	// 	get
-	// 	{
-	// 		if(instance == null)
-	// 		{
-	// 			Debug.LogError("The player commnad voice is null");
-	// 		}
-			
-	// 		return instance;
-	// 	}
-	// }
-	
+		
 	private void Awake()
 	{
-		// if(instance == null)
-		// {
-		// 	instance = this;
-		// 	ConfigkeywordRecognizer();
-		// }else
-		// {
-		// 	Destroy(instance);
-		// }
+		DontDestroyOnLoad(this);
 		ConfigkeywordRecognizer();
 	}
+	
 	void Start()
 	{
 		keywordRecognizer.Start();
@@ -48,26 +30,33 @@ public class CommnadVoice : MonoBehaviour
 		wordToAction = new Dictionary<string, Action>();
 		wordToAction.Add("arriba", Arriba);
 		wordToAction.Add("abajo", Abajo);
-		keywordRecognizer = new KeywordRecognizer(wordToAction.Keys.ToArray());
+		wordToAction.Add("saltar", Arriba);
+		wordToAction.Add("deslizar", Abajo);
+		wordToAction.Add("up", Arriba);
+		wordToAction.Add("down", Abajo);
+		wordToAction.Add("jump", Arriba);
+		wordToAction.Add("slide", Abajo);
+		keywordRecognizer = new KeywordRecognizer(wordToAction.Keys.ToArray(),confidenceLevel);
 		keywordRecognizer.OnPhraseRecognized += WordRecongnized;
-		
 	}
+	
 	private void WordRecongnized(PhraseRecognizedEventArgs word)
 	{
 		Debug.Log(word.text);
 		wordToAction[word.text].Invoke();
 	}
 	
-	private void Abajo()
+	public void Arriba()
+	{
+		if(OnUp != null)
+			OnUp();
+	}
+	
+	public void Abajo()
 	{
 		if(OnDown != null)
 			OnDown();
 	}
 
-	private void Arriba()
-	{
-		if(OnUp != null)
-			OnUp();
-	}
 
 }
