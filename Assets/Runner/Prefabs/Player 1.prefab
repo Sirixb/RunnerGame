@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6931430198559016198}
   - component: {fileID: 8475646709700121470}
   - component: {fileID: 2926604082106359834}
+  - component: {fileID: 733702172}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +43,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168254820557207646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 772645ebc958145c092d6949f827e632, type: 3}
   m_Name: 
@@ -82,10 +83,28 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 1
-  m_Constraints: 80
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &733702172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168254820557207646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e564604ea34ecf7488caeb97d2be911a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsuleCollider: {fileID: 8475646709700121470}
+  rigidbodyPlayer: {fileID: 2926604082106359834}
+  animator: {fileID: 2141710850789030952}
+  speed: 8
+  hight: 5
+  speedHight: 0.4
 --- !u!1001 &5535617742786363833
 PrefabInstance:
   m_ObjectHideFlags: 0

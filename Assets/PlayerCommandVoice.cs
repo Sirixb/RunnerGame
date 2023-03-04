@@ -1,67 +1,94 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
+
 
 public class PlayerCommandVoice : MonoBehaviour
 {
 	[SerializeField] private CapsuleCollider capsuleCollider;
 	[SerializeField] private Rigidbody rigidbodyPlayer;
+	[SerializeField] private Animator animator;
 	
 	
-	KeywordRecognizer keywordRecognizer;
-	Dictionary<string, Action> wordToAction;
-	void Start()
+	private bool canJump = true;
+	private float jump;
+	[SerializeField] private float speed= 5;
+	[SerializeField] private float hight= 1;
+	[SerializeField] private float speedHight = 2;
+	private float tempo;
+	
+	bool shouldContinue = false;
+	static readonly string animatorSpeed = "Speed";
+	
+	private void Start()
 	{
-		wordToAction = new Dictionary<string, Action>();
-		wordToAction.Add("azul",Azul);
-		wordToAction.Add("rojo",Rojo);
-		wordToAction.Add("verde",Verde);
-		wordToAction.Add("arriba",Arriba);
-		wordToAction.Add("abajo",Abajo);
+		animator.SetFloat(animatorSpeed,speed);
 		
-		keywordRecognizer= new KeywordRecognizer(wordToAction.Keys.ToArray());
-		keywordRecognizer.OnPhraseRecognized += WordRecongnized;
-		keywordRecognizer.Start();
+	}
+	public void Slide()
+	{
+		animator.SetFloat(animatorSpeed,speed);
 	}
 
-	private void WordRecongnized(PhraseRecognizedEventArgs word)
+	
+	void Update()
 	{
-		Debug.Log(word.text);
-		wordToAction[word.text].Invoke();
+		Movement();
 	}
 
-	private void Abajo()
+	private void Movement()
 	{
-		transform.Translate(Vector3.down);
+		transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
 	}
 
 	private void Arriba()
 	{
-		// transform.Translate(Vector3.up);
-		rigidbodyPlayer.AddForce(Vector3.up  * 10f,ForceMode.Impulse);
+		StartCoroutine(Jump());
 	}
-
-	private void Verde()
-	{
-		GetComponent<Renderer>().material.SetColor("_Color",Color.green);
-	}
-
-	private void Rojo()
-	{
-		GetComponent<Renderer>().material.SetColor("_Color",Color.red);
-	}
-
-	private void Azul()
-	{
-		GetComponent<Renderer>().material.SetColor("_Color",Color.blue);
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
 	
+	IEnumerator Jump()
+	{
+		do
+		{
+			tempo+=.2f;
+			transform.transform.position = (new Vector3(transform.position.x, Mathf.PingPong((tempo * hight) * speedHight, 5), transform.position.z));
+			print ("Hello World");
+			yield return null;
+			
+		}while(transform.position.y >= .1);
+		
+		tempo= 0f;
+		yield return null;
+	}
+	
+	private void Abajo()
+	{
+		transform.position = new Vector3(transform.position.x,0,transform.position.z);
+	}
+	
+	IEnumerator Fall()
+	{
+		while (jump >= .1)
+		{
+			jump-= Time.deltaTime;
+			transform.Translate(Vector3.down * jump);
+			Debug.Log("bajando");
+			yield return null;
+		}
+		// canJump=true;
+		// transform.position= Vector3.zero;
+		yield return null;
+	}
+	
+	
+	private void OnEnable()
+	{
+		CommnadVoice.OnUp += Arriba;
+		CommnadVoice.OnDown += Abajo;
+	}
+	
+	public void OnDisable()
+	{
+		CommnadVoice.OnUp -= Arriba;
+		CommnadVoice.OnDown -= Abajo;
 	}
 }
