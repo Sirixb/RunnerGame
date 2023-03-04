@@ -57,6 +57,4 @@ public class CommnadVoice : MonoBehaviour
 		if(OnDown != null)
 			OnDown();
 	}
-
-
 }
