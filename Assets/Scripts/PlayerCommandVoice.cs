@@ -36,10 +36,11 @@ public class PlayerCommandVoice : MonoBehaviour
 	{
 		Jump();
 		StartCoroutine(JumpPhysics());
-		Debug.Log("arribas llamado");
+		Debug.Log("arriba llamado");
 	}
 	
 	public void Jump() => animator.SetTrigger(animatorJump);
+	
 	IEnumerator JumpPhysics()
 	{
 		do
@@ -53,6 +54,7 @@ public class PlayerCommandVoice : MonoBehaviour
 		tempo= 0f;
 		yield return null;
 	}
+	
 	public void Abajo()
 	{
 		Debug.Log("abajo llamado");
