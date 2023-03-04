@@ -29,7 +29,10 @@ public class PlayerCommandVoice : MonoBehaviour
 
 	public void OnAccion(InputValue value)
 	{
-		// Arriba();
+		Vector3 newVector= new Vector3(0f,.3f,0f);
+		
+		
+		Debug.Log("Accion presionada");
 	}
 	
 	public void Arriba()
@@ -53,7 +56,6 @@ public class PlayerCommandVoice : MonoBehaviour
 		tempo= 0f;
 		yield return null;
 	}
-	
 	public void Abajo()
 	{
 		Debug.Log("abajo llamado");
@@ -63,6 +65,21 @@ public class PlayerCommandVoice : MonoBehaviour
 
 	public void Slide() => animator.SetTrigger(animatorSlide);
 	
+	public void ContractCollider()
+	{
+		
+		capsuleCollider.center = new Vector3(0f,.3f,0f);
+		capsuleCollider.height=.6f;
+		Debug.Log("Collider contraido llamado");
+		
+	}
+	public void ExpandCollider()
+	{
+		capsuleCollider.center = new Vector3(0f,.9f,0f);
+		capsuleCollider.height= 1.8f;
+		Debug.Log("Collider expandido llamado");
+		
+	}
 	private void OnEnable()
 	{
 		CommnadVoice.OnUp += Arriba;

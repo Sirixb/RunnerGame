@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2926604082106359834}
   - component: {fileID: 733702172}
   - component: {fileID: 6052529101233956127}
+  - component: {fileID: 1101124248}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772645ebc958145c092d6949f827e632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: 2141710850789030952}
+  m_Animator: {fileID: 1101124248}
   m_SkinnedMeshRenderer: {fileID: 3552323526451143052}
   m_PlayerSpeed: 1
   m_CustomPlayerSpeed: 10
@@ -102,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   capsuleCollider: {fileID: 8475646709700121470}
   rigidbodyPlayer: {fileID: 2926604082106359834}
-  animator: {fileID: 2141710850789030952}
+  animator: {fileID: 1101124248}
   speed: 8
   hight: 5
   speedHight: 0.4
@@ -189,6 +190,26 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &1101124248
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168254820557207646}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: a38f7b5b103d143b68ac7b651728e3ed, type: 3}
+  m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5535617742786363833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -271,14 +292,9 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: a38f7b5b103d143b68ac7b651728e3ed, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a38f7b5b103d143b68ac7b651728e3ed, type: 3}
---- !u!95 &2141710850789030952 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: a38f7b5b103d143b68ac7b651728e3ed,
-    type: 3}
-  m_PrefabInstance: {fileID: 5535617742786363833}
-  m_PrefabAsset: {fileID: 0}
 --- !u!137 &3552323526451143052 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -171677267976282059, guid: a38f7b5b103d143b68ac7b651728e3ed,
