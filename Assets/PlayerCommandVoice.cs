@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class PlayerCommandVoice : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerCommandVoice : MonoBehaviour
 	
 	bool shouldContinue = false;
 	static readonly string animatorSpeed = "Speed";
+	static readonly string animatorSlide = "Slide";
 	
 	private void Start()
 	{
@@ -26,13 +28,22 @@ public class PlayerCommandVoice : MonoBehaviour
 	}
 	public void Slide()
 	{
-		animator.SetFloat(animatorSpeed,speed);
+		animator.SetTrigger(animatorSlide);
 	}
 
+	public void OnAccion(InputValue value)
+	{
+		Slide();
+	}
 	
 	void Update()
 	{
 		Movement();
+		// if(Input.GetKeyDown(KeyCode.Space))
+		// {
+		// 	Slide();	
+		// }
+		
 	}
 
 	private void Movement()
