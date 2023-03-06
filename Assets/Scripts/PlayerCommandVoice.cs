@@ -27,6 +27,17 @@ public class PlayerCommandVoice : MonoBehaviour
 
 	private void Movement() => transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
 
+	public void OnAccionUp(InputValue value)
+	{
+		Debug.Log("Accion presionada");
+		Arriba();
+	}
+	public void OnAccionDown(InputValue value)
+	{
+		Debug.Log("Accion abajo presionada");
+		Abajo();
+	}
+	
 	public void Arriba()
 	{
 		Jump();
@@ -72,13 +83,13 @@ public class PlayerCommandVoice : MonoBehaviour
 	
 	private void OnEnable()
 	{
-		CommnadVoice.OnUp += Arriba;
-		CommnadVoice.OnDown += Abajo;
+		// CommnadVoice.OnUp += Arriba;
+		// CommnadVoice.OnDown += Abajo;
 	}
 	
 	public void OnDisable()
 	{
-		CommnadVoice.OnUp -= Arriba;
-		CommnadVoice.OnDown -= Abajo;
+		// CommnadVoice.OnUp -= Arriba;
+		// CommnadVoice.OnDown -= Abajo;
 	}
 }
